@@ -1,0 +1,28 @@
+#Kel Knight and Kendall Ward-Hill
+#Group 7: Random Number File Writer
+#This program generates random numbers to a file based on how many the user inputs
+#It was made for a group assignment in class
+#Import random module to access rng
+import random
+
+def main():
+    #If user input is valid, then the program will run this process
+    try:
+        times = int(input("How many random numbers would you like for the file to hold? "))
+        #Open a file to write the user's desired total of numbers
+        ranNum_file = open("ranNum.txt",'w')
+        #loop to write the randomly generated numbers for the amount of times the user wanted
+        for count in range(times):
+            #randomly generate a number from 1 to 500
+            number = random.randint(1,500)
+            #write the number 
+            ranNum_file.write(f"{number}\n")
+        #Close the opened file
+        ranNum_file.close()
+
+    #catch input error, telld the user submitted an invalid answer
+    except ValueError:
+        print("Please input a whole number only.")
+        
+#call main function 
+main()
