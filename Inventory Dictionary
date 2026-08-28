@@ -1,0 +1,185 @@
+#Kel Knight and Kendall Ward-Hill
+#Mr. Chou
+#CS101-03
+#12/09/24
+
+#this program uses a dictionary to track students names, student ID numbers,
+#their House, school subjects, and magical items/supplies they need for course material
+
+#global constants
+LOOK_UP = 1     #these are all menu options
+ADD = 2
+DELETE = 3
+SHOW = 4
+QUIT = 5
+MAX_COURSES = 7 #the maximum amount of courses a student can take
+NAME_LIST = []  #intializing the lsit for student names
+
+#create main
+def main():
+    students = {}      #create an empty dictionary
+
+    choice = 0          #intialize choice for user
+
+
+    #as long as the user doesn't hit quit the program will repeat
+    while choice != QUIT:
+        choice = get_menu_choice()  #get the user's menu choice
+
+        #process choice by calling the functions
+        if choice == LOOK_UP:
+            look_up(students)
+        elif choice == ADD:
+            add(students)
+        elif choice == DELETE:
+            delete(students)
+        elif choice == SHOW:
+            show(students)
+#set up the menu and introduce the program
+def get_menu_choice():
+    print()
+    print("This program allows you to manage students at the Tianyuan Academy of Magic.")
+    print("You can look a student up as well their ID number, House, subjects, and needed"+
+          " magical materials pertaining to them.")
+    print("Students can only have 7 classes maximum, they cannot be enrolled in more.")
+    print("---------------------------")
+    print("1 Look up student.")
+    print("2 Add a new student.")
+    print("3 Delete a student.")
+    print("4 Show list of all registered students.")
+    print("5 Quit program.")
+    print()
+
+    choice = int(input("Enter your choice:"))       #get the user's choice
+
+    while choice < LOOK_UP or choice > QUIT:        #validate user's choice
+        choice = int(input("Invalid response, enter a valid choice: "))
+
+    return choice
+
+#the look up function looks up a name in the students dictionary
+def look_up(students):
+    name = input("Enter a name: ")      #get a name to look up
+
+    print(students.get(name, "Student was not found."))
+
+#the add function adds a new entry into the students dictionary
+def add(students):
+    #get a name and all of the student information
+    #add the name to the list of student names
+    name = input("Enter a name: ")
+    NAME_LIST.append(name)
+    #get the stydent's ID
+    studentID = input("Enter the students ID number: ")
+    #get the house
+    house = input("Enter the student's house: ")
+    #data validation to make sure only valid houses are inputed
+    #if it is a not valid house then user is prompted to enter a valid house
+    while house != "Phoenix" and house != "phoenix" and house != "tiger" and house != "Tiger" and house != "Dragon" and house != "dragon" and house != "Fox" and house != "fox":
+        print("Uh oh! That is not a valid house. The houses are Phoenix, Tiger, Dragon, and Fox.")
+        house = input("Please enter the student's house: ")
+    #tell the user the courses then get the courses
+    print("Here are the courses:")
+    print("1. Magical History \n 2.Potions \n 3. Defensive Magic \n"+
+          "4. Magical Beasts \n 5. Human Studies \n 6. Astronomy \n"+
+          "7. Herbology \n 8. Divination \n 9. Cosmology \n"+
+          "10. Transfiguration \n 11. Evocation \n 12. Illusion \n"+
+          "13. Enchantments \n 14. Conjuration")
+    #takes the courses as a string but on the basis of numbers
+    courses = input("Enter their course numbers. Make sure to seperate each course with a comma: ")
+    #turns the course numbers into a list 
+    course_list = courses.split(',')  
+    #checks to make sure the course list does not exceed the max number allowed
+    #then asks the user to re-enter courses if it does exceed
+    while len(course_list) > MAX_COURSES:
+        print("That's too many courses!")
+        courses = input("Enter their course numbers. Make sure to seperate each course with a comma: ")
+        course_list = courses.split(',')
+    #checks every value in the list of the courses by iterating through a for loop
+    for count in course_list:
+        #establishes a new list that will be used to hold the equivalent course/items that correspond to the number
+        finalcourses = []
+        items = []
+        #checks to see what values are in the list, then adds the corresponding courses and their items to new lists
+        #repeat this to check every course
+        if "1" in course_list:
+            finalcourses.append("Magical History\n")
+            items.append("The student will need the MH Textbook, and Coffee for Magical History.\n")
+        if "2" in course_list:
+            finalcourses.append("Potions\n")
+            items.append("The student will need a cauldron, Mortar and Pestle, vials, and magical ingredients for Potions.\n")
+        if "3" in course_list:
+            finalcourses.append("Defensive Magic\n")
+            items.append("The student will need a wand, staff, wards, and potion of recovery for Defensive Magic.\n")
+        if "4" in course_list:
+            finalcourses.append("Magical Beasts\n")
+            items.append("The student will need heavy leather gloves, heavy apron, and a staff for Magical Beasts.\n")
+        if "5" in course_list:
+            finalcourses.append("Human Studies\n")
+            items.append("The student will need a laptop and a smartphone for Human Studies.\n")
+        if "6" in course_list:
+            finalcourses.append("Astronomy\n")
+            items.append("The student will need a telescope, and an orrery for Astronomy.\n")
+        if "7" in course_list:
+            finalcourses.append("Herbology\n")
+            items.append("The student will need sheers and clay pots for Herbology.\n")
+        if "8" in course_list:
+            finalcourses.append("Divination\n")
+            items.append("The student will need tea, tarot cards, and magical ingredients for Divination.\n")
+        if "9" in course_list:
+            finalcourses.append("Cosmology\n")
+            items.append("The student will need the C textbook, and talismans for Cosmology.\n")
+        if "10" in course_list:
+            finalcourses.append("Transfiguration\n")
+            items.append("The student will need a wand, and magical ingredients for Transfiguration.\n")
+        if "11" in course_list:
+            finalcourses.append("Evocation\n")
+            items.append("The student will need a staff, healing potion, conduit, and wards for Evocation.\n")
+        if "12" in course_list:
+            finalcourses.append("Illusion\n")
+            items.append("The student will need a cloak, and charms for Illusion.\n")
+        if "13" in course_list:
+            finalcourses.append("Enchantments\n")
+            items.append("The student will need a wand, staff, and magical ingredients for Enchantments.\n")
+        if "14" in course_list:
+            finalcourses.append("Conjuration\n")
+            items.append("The student will need a conjuration wand, and conduit for Conjuration.\n")
+    #catch data that is not in the course range option of 1-14
+    else:
+        print("Error.That is not a valid course. Please delete the student name from the entries and try again.")
+        #reset the lists so no other courses show up
+        finalcourses = []
+        items = []
+        #remind the user this is not valid data
+        finalcourses.append("You entered a not valid course. Please try again.")
+        items.append("Unsure, try again. \n")
+    #turns the new lists back into strings by using the join method, also adds a space
+    finalcourses_string = ''.join(finalcourses)
+    items_string = ''.join(items)
+        
+    #if a name does not exist, then add the name with the information
+    if name not in students:
+        #combine all of the info together with formatting. the .title() makes the first letter in the variable house uppercase
+        students[name] = "Student ID: " + studentID + "\n" + "Student house: "+ house.title() + "\n"+ "\nCourses: "+ "\n" + finalcourses_string + "\n"+ "Required items: \n" +  items_string
+    else:
+        print("That name entry already exists!")
+
+#the delete function deletes an entry from the dictionary
+def delete(students):
+    name = input("Enter a name: ")      #get a name to lookup
+
+    #if the name is found, delete the entry and remove the name from the list of names
+    if name in students:
+        del students[name]
+        NAME_LIST.remove(name)
+    else:
+        print("That student was not found.")
+#the show function shows a list of all the names of the currently registered students
+def show(students):
+    #makes sure that the name list isnt empty, if it is then the user will be told it is empty
+    if NAME_LIST != []:
+        print(NAME_LIST)
+    else:
+        print("There are currently no registered students.")
+
+main()      #call for main
