@@ -13,7 +13,7 @@ DELETE = 3
 SHOW = 4
 QUIT = 5
 MAX_COURSES = 7 #the maximum amount of courses a student can take
-NAME_LIST = []  #intializing the lsit for student names
+NAME_LIST = []  #intializing the list for student names
 
 #create main
 def main():
